@@ -10,8 +10,6 @@ namespace CleanArchitecture.Domain.Interfaces
     {
         Task AddAsync(T entity);
         void Delete(T entity);
-        Task<IEnumerable<T>> GetAllAsync();
-        Task<T?> GetByIdAsync(int id);
         Task SaveChangesAsync();
     }
 }
