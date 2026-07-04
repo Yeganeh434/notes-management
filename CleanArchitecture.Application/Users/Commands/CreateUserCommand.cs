@@ -1,4 +1,4 @@
-﻿using CleanArchitecture.Domain.Entities;
+﻿using CleanArchitecture.Application.Users.DTOs;
 using MediatR;
 using System;
 using System.Collections.Generic;
@@ -8,7 +8,7 @@ using System.Threading.Tasks;
 
 namespace CleanArchitecture.Application.Users.Commands
 {
-    public class CreateUserCommand:IRequest<User>
+    public class CreateUserCommand:IRequest<UserDTO>
     {
         public string Username { get; private set; }
         public string Password { get; private set; }

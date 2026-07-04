@@ -4,11 +4,11 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using CleanArchitecture.Domain.Entities;
+using CleanArchitecture.Application.Notes.DTOs;
 
 namespace CleanArchitecture.Application.Notes.Queries
 {
-    public class FindByTitleQuery:IRequest<IEnumerable<Note>>
+    public class FindByTitleQuery:IRequest<IEnumerable<NoteDTO>>
     {
         public int UserId { get; set; }
         public string Title { get; set; }

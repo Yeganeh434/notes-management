@@ -2,6 +2,7 @@
 using CleanArchitecture.Domain.Entities;
 using CleanArchitecture.Domain.Interfaces;
 using CleanArchitecture.Application.Exceptions;
+using CleanArchitecture.Application.Notes.DTOs;
 using MediatR;
 using System;
 using System.Collections;
@@ -12,7 +13,7 @@ using System.Threading.Tasks;
 
 namespace CleanArchitecture.Application.Notes.Handlers
 {
-    public class GetNoteByIdHandler:IRequestHandler<GetNoteByIdQuery,Note>
+    public class GetNoteByIdHandler:IRequestHandler<GetNoteByIdQuery,NoteDTO>
     {
         private readonly INoteRepository _noteRepository;
         public GetNoteByIdHandler(INoteRepository noteRepository)
@@ -20,7 +21,7 @@ namespace CleanArchitecture.Application.Notes.Handlers
             _noteRepository = noteRepository;
         }
 
-        public async Task<Note> Handle(GetNoteByIdQuery request,CancellationToken cancellationToken)
+        public async Task<NoteDTO> Handle(GetNoteByIdQuery request,CancellationToken cancellationToken)
         {
             Note? note=await _noteRepository.GetByIdAsync(request.UserId,request.NoteId);
             if (note == null)
@@ -28,7 +29,14 @@ namespace CleanArchitecture.Application.Notes.Handlers
                 throw new NotFoundException("No note found with this ID.");
             }
 
-            return note;
+            NoteDTO DTO = new NoteDTO
+            {
+                Id = note.Id,
+                Title = note.Title,
+                Content = note.Content
+            };
+
+            return DTO;
         }
     }
 }

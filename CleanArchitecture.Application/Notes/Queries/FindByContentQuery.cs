@@ -1,4 +1,4 @@
-﻿using CleanArchitecture.Domain.Entities;
+﻿using CleanArchitecture.Application.Notes.DTOs;
 using MediatR;
 using System;
 using System.Collections.Generic;
@@ -8,7 +8,7 @@ using System.Threading.Tasks;
 
 namespace CleanArchitecture.Application.Notes.Queries
 {
-    public class FindByContentQuery:IRequest<IEnumerable<Note>>
+    public class FindByContentQuery:IRequest<IEnumerable<NoteDTO>>
     {
         public int UserId {  get; set; }
         public string Word {  get; set; }

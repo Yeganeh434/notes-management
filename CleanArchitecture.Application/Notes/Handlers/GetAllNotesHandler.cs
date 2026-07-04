@@ -1,6 +1,7 @@
 ﻿using CleanArchitecture.Application.Notes.Queries;
 using CleanArchitecture.Domain.Entities;
 using CleanArchitecture.Domain.Interfaces;
+using CleanArchitecture.Application.Notes.DTOs;
 using MediatR;
 using System;
 using System.Collections.Generic;
@@ -10,7 +11,7 @@ using System.Threading.Tasks;
 
 namespace CleanArchitecture.Application.Notes.Handlers
 {
-    public class GetAllNotesHandler:IRequestHandler<GetAllNotesQuery,IEnumerable<Note>>
+    public class GetAllNotesHandler:IRequestHandler<GetAllNotesQuery,IEnumerable<NoteDTO>>
     {
         private readonly INoteRepository _noteRepository;
         public GetAllNotesHandler(INoteRepository noteRepository)
@@ -18,11 +19,18 @@ namespace CleanArchitecture.Application.Notes.Handlers
             _noteRepository = noteRepository;
         }
 
-        public async Task<IEnumerable<Note>> Handle(GetAllNotesQuery request,CancellationToken cancellationToken)
+        public async Task<IEnumerable<NoteDTO>> Handle(GetAllNotesQuery request,CancellationToken cancellationToken)
         {
-            IEnumerable<Note> response = await _noteRepository.GetAllAsync(request.UserId);
+            IEnumerable<Note> notes = await _noteRepository.GetAllAsync(request.UserId);
 
-            return response;
+            IEnumerable<NoteDTO> DTO = notes.Select(n => new NoteDTO
+            {
+                Id = n.Id,
+                Title = n.Title,
+                Content = n.Content
+            });
+
+            return DTO;
         }
     }
 }
