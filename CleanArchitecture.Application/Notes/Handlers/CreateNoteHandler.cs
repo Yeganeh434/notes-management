@@ -22,8 +22,8 @@ namespace CleanArchitecture.Application.Notes.Handlers
         public async Task<NoteDTO> Handle(CreateNoteCommand request,CancellationToken cancellationToken)
         {
             Note note=new Note(request.Title,request.Content,request.UserId);
-            await _noteRepository.AddAsync(note);
-            await _noteRepository.SaveChangesAsync();
+            await _noteRepository.AddAsync(note, cancellationToken);
+            await _noteRepository.SaveChangesAsync(cancellationToken);
 
             NoteDTO DTO = new NoteDTO
             {

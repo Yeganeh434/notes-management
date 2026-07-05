@@ -19,9 +19,9 @@ namespace CleanArchitecture.Infrastructure.Repositories
             _dbSet= context.Set<T>();
         }
 
-        public async Task AddAsync(T entity)
+        public async Task AddAsync(T entity, CancellationToken cancellationToken)
         {
-            await _dbSet.AddAsync(entity);
+            await _dbSet.AddAsync(entity, cancellationToken);
         }
 
         public void Delete(T entity)
@@ -29,9 +29,9 @@ namespace CleanArchitecture.Infrastructure.Repositories
             _dbSet.Remove(entity);
         }
 
-        public async Task SaveChangesAsync()
+        public async Task SaveChangesAsync(CancellationToken cancellationToken)
         {
-            await _context.SaveChangesAsync();
+            await _context.SaveChangesAsync(cancellationToken);
         }
     }
 }

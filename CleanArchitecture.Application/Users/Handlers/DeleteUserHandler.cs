@@ -21,14 +21,14 @@ namespace CleanArchitecture.Application.Users.Handlers
 
         public async Task<Unit> Handle(DeleteUserCommand request,CancellationToken cancellationToken)
         {
-            User? user = await _userRepository.GetByIdAsync(request.Id);
+            User? user = await _userRepository.GetByIdAsync(request.Id, cancellationToken);
             if (user == null)
             {
                 throw new NotFoundException("User not found");
             }
 
             _userRepository.Delete(user);
-            await _userRepository.SaveChangesAsync();
+            await _userRepository.SaveChangesAsync(cancellationToken);
 
             return Unit.Value;
         }

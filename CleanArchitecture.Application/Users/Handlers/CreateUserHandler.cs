@@ -24,13 +24,13 @@ namespace CleanArchitecture.Application.Users.Handlers
         {
             User user=new User(request.Username, request.Password,request.Email);
 
-            if (await _userRepository.ExistsByUsernameAsync(user.Username))
+            if (await _userRepository.ExistsByUsernameAsync(user.Username,cancellationToken))
             {
                 throw new UsernameAlreadyExistsException();
             }
 
-            await _userRepository.AddAsync(user);
-            await _userRepository.SaveChangesAsync();
+            await _userRepository.AddAsync(user, cancellationToken);
+            await _userRepository.SaveChangesAsync(cancellationToken);
 
             UserDTO DTO = new UserDTO
             {

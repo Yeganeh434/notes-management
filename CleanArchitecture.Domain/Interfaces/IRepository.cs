@@ -8,8 +8,8 @@ namespace CleanArchitecture.Domain.Interfaces
 {
     public interface IRepository<T> where T : class
     {
-        Task AddAsync(T entity);
+        Task AddAsync(T entity, CancellationToken cancellationToken);
         void Delete(T entity);
-        Task SaveChangesAsync();
+        Task SaveChangesAsync(CancellationToken cancellationToken);
     }
 }

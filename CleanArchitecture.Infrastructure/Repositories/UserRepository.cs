@@ -14,14 +14,14 @@ namespace CleanArchitecture.Infrastructure.Repositories
     {
         public UserRepository(AppDbContext context):base(context) { }
 
-        public async Task<User?> GetByIdAsync(int id)
+        public async Task<User?> GetByIdAsync(int id, CancellationToken cancellationToken)
         {
-            return await _dbSet.FirstOrDefaultAsync(n=>n.Id == id);
+            return await _dbSet.FirstOrDefaultAsync(n=>n.Id == id, cancellationToken);
         }
 
-        public async Task<bool> ExistsByUsernameAsync(string username)
+        public async Task<bool> ExistsByUsernameAsync(string username, CancellationToken cancellationToken)
         {
-            return await _dbSet.AnyAsync(n=>n.Username == username);
+            return await _dbSet.AnyAsync(n=>n.Username == username, cancellationToken);
         }
     }
 }

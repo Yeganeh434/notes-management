@@ -21,7 +21,7 @@ namespace CleanArchitecture.Application.Notes.Handlers
 
         public async Task<IEnumerable<NoteDTO>> Handle(FindByContentQuery request,CancellationToken cancellationToken)
         {
-            IEnumerable<Note> notes = await _noteRepository.FindByContentAsync(request.UserId,request.Word);
+            IEnumerable<Note> notes = await _noteRepository.FindByContentAsync(request.UserId,request.Word, cancellationToken);
 
             IEnumerable<NoteDTO> DTO =notes.Select(n=> new NoteDTO
             {

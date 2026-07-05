@@ -9,9 +9,9 @@ namespace CleanArchitecture.Domain.Interfaces
 {
     public interface INoteRepository:IRepository<Note>
     {
-        Task<IEnumerable<Note>> GetAllAsync(int userId);
-        Task<Note?> GetByIdAsync(int userId,int noteId);
-        Task<IEnumerable<Note>> FindByTitleAsync(int userId, string title);
-        Task<IEnumerable<Note>> FindByContentAsync(int userId, string word);
+        Task<IEnumerable<Note>> GetAllAsync(int userId,CancellationToken cancellationToken);
+        Task<Note?> GetByIdAsync(int userId,int noteId, CancellationToken cancellationToken);
+        Task<IEnumerable<Note>> FindByTitleAsync(int userId, string title, CancellationToken cancellationToken);
+        Task<IEnumerable<Note>> FindByContentAsync(int userId, string word, CancellationToken cancellationToken);
     }
 }

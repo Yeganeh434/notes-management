@@ -23,7 +23,7 @@ namespace CleanArchitecture.Application.Notes.Handlers
 
         public async Task<NoteDTO> Handle(GetNoteByIdQuery request,CancellationToken cancellationToken)
         {
-            Note? note=await _noteRepository.GetByIdAsync(request.UserId,request.NoteId);
+            Note? note=await _noteRepository.GetByIdAsync(request.UserId,request.NoteId, cancellationToken);
             if (note == null)
             {
                 throw new NotFoundException("No note found with this ID.");

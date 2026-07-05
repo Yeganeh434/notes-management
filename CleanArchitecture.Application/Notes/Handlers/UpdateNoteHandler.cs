@@ -21,14 +21,14 @@ namespace CleanArchitecture.Application.Notes.Handlers
 
         public async Task<Unit> Handle(UpdateNoteCommand request,CancellationToken cancellationToken)
         {
-            Note? note=await _noteRepository.GetByIdAsync(request.UserId,request.NoteId);
+            Note? note=await _noteRepository.GetByIdAsync(request.UserId,request.NoteId, cancellationToken);
             if (note == null)
             {
                 throw new NotFoundException("Note not found");
             }
 
             note.Update(request.Title,request.Content);
-            await _noteRepository.SaveChangesAsync();
+            await _noteRepository.SaveChangesAsync(cancellationToken);
 
             return Unit.Value;
         }
