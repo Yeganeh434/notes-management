@@ -37,8 +37,8 @@ namespace CleanArchitecture.Domain.Entities
 
         public void Update(string Username, string Email)
         {
-            Username = this.Username;
-            Email = this.Email;
+            this.Username=Username;
+            this.Email= Email ;
             UpdatedAt = DateTime.Now;
 
             Validate();
