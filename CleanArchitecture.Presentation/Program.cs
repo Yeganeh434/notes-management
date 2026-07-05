@@ -2,6 +2,7 @@ using CleanArchitecture.Application;
 using CleanArchitecture.Domain.Interfaces;
 using CleanArchitecture.Infrastructure.Data;
 using CleanArchitecture.Infrastructure.Repositories;
+using CleanArchitecture.Presentation.Exceptions;
 using Microsoft.EntityFrameworkCore;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -22,6 +23,9 @@ builder.Services.AddMediatR(cfg =>
 builder.Services.AddScoped<IUserRepository,UserRepository>();
 builder.Services.AddScoped<INoteRepository,NoteRepository>();
 
+builder.Services.AddExceptionHandler<GlobalExceptionHandler>();
+
+builder.Services.AddProblemDetails();
 
 builder.Services.AddControllers();
 // Learn more about configuring OpenAPI at https://aka.ms/aspnet/openapi
@@ -34,6 +38,8 @@ if (app.Environment.IsDevelopment())
 {
     app.MapOpenApi();
 }
+
+app.UseExceptionHandler();
 
 app.UseHttpsRedirection();
 
