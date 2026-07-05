@@ -2,6 +2,7 @@
 using CleanArchitecture.Domain.Entities;
 using CleanArchitecture.Domain.Interfaces;
 using CleanArchitecture.Application.Users.DTOs;
+using CleanArchitecture.Application.Exceptions;
 using MediatR;
 using System;
 using System.Collections.Generic;
@@ -22,6 +23,12 @@ namespace CleanArchitecture.Application.Users.Handlers
         public async Task<UserDTO> Handle(CreateUserCommand request,CancellationToken cancellationToken)
         {
             User user=new User(request.Username, request.Password,request.Email);
+
+            if (await _userRepository.ExistsByUsernameAsync(user.Username))
+            {
+                throw new UsernameAlreadyExistsException();
+            }
+
             await _userRepository.AddAsync(user);
             await _userRepository.SaveChangesAsync();
 

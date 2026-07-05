@@ -18,5 +18,10 @@ namespace CleanArchitecture.Infrastructure.Repositories
         {
             return await _dbSet.FirstOrDefaultAsync(n=>n.Id == id);
         }
+
+        public async Task<bool> ExistsByUsernameAsync(string username)
+        {
+            return await _dbSet.AnyAsync(n=>n.Username == username);
+        }
     }
 }

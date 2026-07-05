@@ -10,5 +10,6 @@ namespace CleanArchitecture.Domain.Interfaces
     public interface IUserRepository:IRepository<User>
     {
         Task<User?> GetByIdAsync(int id);
+        Task<bool> ExistsByUsernameAsync(string username);
     }
 }
