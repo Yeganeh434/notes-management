@@ -26,7 +26,7 @@ namespace CleanArchitecture.Presentation.Controllers
         }
 
         [HttpDelete("Delete/{userId:int}/{noteId:int}")]
-        public IActionResult DeleteNote(int userId,int noteId)
+        public async Task<IActionResult> DeleteNote(int userId,int noteId)
         {
             DeleteNoteCommand request = new DeleteNoteCommand 
             { 
@@ -34,7 +34,8 @@ namespace CleanArchitecture.Presentation.Controllers
                 NoteId= noteId
             };
 
-            _mediator.Send(request);
+            await _mediator.Send(request);
+
             return NoContent();
         }
 
