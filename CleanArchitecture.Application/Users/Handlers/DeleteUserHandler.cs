@@ -28,6 +28,8 @@ namespace CleanArchitecture.Application.Users.Handlers
             }
 
             _userRepository.Delete(user);
+            await _userRepository.SaveChangesAsync();
+
             return Unit.Value;
         }
     }
