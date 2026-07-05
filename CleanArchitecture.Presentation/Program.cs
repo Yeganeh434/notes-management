@@ -1,3 +1,4 @@
+using CleanArchitecture.Application;
 using CleanArchitecture.Domain.Interfaces;
 using CleanArchitecture.Infrastructure.Data;
 using CleanArchitecture.Infrastructure.Repositories;
@@ -12,6 +13,11 @@ builder.Services.AddDbContext<AppDbContext>(options =>
     options.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection"));
 }
 );
+
+builder.Services.AddMediatR(cfg =>
+{
+    cfg.RegisterServicesFromAssembly(typeof(DependencyInjection).Assembly);
+});
 
 builder.Services.AddScoped<IUserRepository,UserRepository>();
 builder.Services.AddScoped<INoteRepository,NoteRepository>();
